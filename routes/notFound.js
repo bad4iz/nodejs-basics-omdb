@@ -1,12 +1,16 @@
-const fs = require('fs');
-const path = require('path');
+const render = require('../lib/render');
 
 function notFound(req, res) {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html');
+  render('error.html', {error: 'не найдено'}, (error, html) => {
+    if (error) {
+      res.writeHead(500, {'Content-Type': 'text/plain'});
+      return res.end(error.message);
+    }
 
-  const stream = fs.createReadStream(path.join('public', 'error.html'));
-  stream.pipe(res);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/html');
+    res.end(html)
+  });
 }
 
 module.exports = notFound;

@@ -13,17 +13,30 @@ function search(req, res) {
   res.setHeader('Content-Type', 'text/html');
 
   omdb(title, (error, movie) =>{
-    if (error) throw error;
+    if (error) {
+      render('error.html', { error: error.message}, (error, html) => {
+        if(error) {
+          res.writeHead(500, {'Content-Type' : 'text/plain'});
+          return res.end(error.message);
 
-    render('movie.html', movie, (error, html) => {
-      if(error) {
+        }
 
-      };
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/html');
+        res.end(html)
+      });
+    } else {
 
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/html');
-      res.end(html)
-    });
+      render('movie.html', movie, (error, html) => {
+        if (error) {
+          res.writeHead(500, {'Content-Type': 'text/plain'});
+          return res.end(error.message);
+        }
+
+        res.statusCode = 200;
+        res.end(html)
+      });
+    }
   });
 
   // const stream = fs.createReadStream(path.join('public', 'movie.html'));
