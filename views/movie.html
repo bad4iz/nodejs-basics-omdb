@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/app.css">
+    <title>{{Title}} - OMDB</title>
+</head>
+
+<body id="movie">
+<div class="card">
+    <div class="card-media">
+        <img src="{{Poster}}" />
+    </div>
+
+    <div class="card-content">
+        <h1 class="card-title">{{Title}}</h1>
+        <div>
+            <small>{{Year}}</small> &bull;
+            <small>{{Director}}</small> &bull;
+            <small>{{Runtime}}</small> &bull;
+            <small>{{imdbRating}}/10</small>
+        </div>
+        <p>{{Plot}}</p>
+        <a href="http://www.imdb.com/title/{{imdbID}}" target="_blank">Подробнее</a>
+    </div>
+</div>
+</body>
+</html>

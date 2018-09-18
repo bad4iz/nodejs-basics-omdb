@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+// const fs = require('fs');
+// const path = require('path');
 const url = require('url');
 
 const omdb = require('../lib/omdb');
+const render = require('../lib/render');
 
 function search(req, res) {
   const parseUrl = url.parse(req.url, true);
@@ -11,14 +12,22 @@ function search(req, res) {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html');
 
-  omdb(title, (error, move) =>{
+  omdb(title, (error, movie) =>{
     if (error) throw error;
 
-    console.log(move);
+    render('movie.html', movie, (error, html) => {
+      if(error) {
+
+      };
+
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/html');
+      res.end(html)
+    });
   });
 
-  const stream = fs.createReadStream(path.join('public', 'movie.html'));
-  stream.pipe(res);
+  // const stream = fs.createReadStream(path.join('public', 'movie.html'));
+  // stream.pipe(res);
 }
 
 module.exports = search;
