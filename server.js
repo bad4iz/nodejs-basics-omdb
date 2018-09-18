@@ -1,7 +1,9 @@
 const http = require('http');
 
 const { public, home, search, notFound } = require('./routes');
+const render = require('./lib/render');
 
+http.ServerResponse.prototype.render = render;
 
 http.createServer((req, res) => {
   if(req.url.match(/\.(html|css|js|png)$/)) {
