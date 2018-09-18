@@ -9,7 +9,7 @@ http.createServer((req, res) => {
   } else {
     if (req.url === '/') {
       home(req, res);
-    } else if (req.url === '/search') {
+    } else if (req.url.startsWith('/search')) {
       search(req, res);
     } else {
       notFound(req, res);
