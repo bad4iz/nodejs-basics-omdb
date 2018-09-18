@@ -1,6 +1,6 @@
 const http = require('http');
 
-const { public, home } = require('./routes');
+const { public, home, search, notFound } = require('./routes');
 
 
 http.createServer((req, res) => {
@@ -10,9 +10,9 @@ http.createServer((req, res) => {
     if (req.url === '/') {
       home(req, res);
     } else if (req.url === '/search') {
-
+      search(req, res);
     } else {
-
+      notFound(req, res);
     }
   }
 
